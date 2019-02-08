@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\jwt;
 
 use Validator;
-use App\Http\Requests\ValidacionRegistro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -10,6 +9,14 @@ use JWTAuth;
 use App\User;
 class AuthController extends Controller
 {
+
+    /**
+     * Referencias de uso basico
+     *
+     * @return https://medium.com/@experttyce/c%C3%B3mo-crear-un-api-rest-con-laravel-5-7-y-jwt-token-94b79c533c6d
+     */
+    
+
     public function __construct()
     {
         $this->middleware('jwt', ['except' => ['login', 'register']]);
