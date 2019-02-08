@@ -1,15 +1,16 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\jwt;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-
+use JWTAuth;
+use App\User;
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('jwt', ['except' => ['login']]);
+        $this->middleware('jwt', ['except' => ['login', 'register']]);
     }
     /**
      * Get a JWT via given credentials.
@@ -33,6 +34,23 @@ class AuthController extends Controller
     {
         return response()->json(auth()->user());
     }
+
+    //Funcion que se ha utilizado para hacer el registro
+    public function register(Request $request)
+    {
+        
+        $user = User::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => bcrypt($request->get('password')),
+        ]);
+
+        $token = JWTAuth::fromUser($user);
+
+        return $this->respondWithToken($token);
+    }
+
+
     public function payload()
     {
         return response()->json(auth()->payload());
