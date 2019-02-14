@@ -50,12 +50,15 @@
 
             .links > a {
                 color: #636b6f;
+                margin-top: 12px;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+                display: flex;
+                flex-direction: column;
             }
 
             .m-b-md {
@@ -81,21 +84,13 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Estándares de programación
                 </div>
 
                 <div class="links">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <input type="submit" value="Cerra sesion">
-                    </form>
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <strong><h3 style="color: red">Integrantes</h3></strong>
+                    <a href="#">Kevin Ezequiel Méndez Orellana</a>
+                    <a href="#">Kevin Ezequiel Méndez Orellana</a>
                 </div>
             </div>
         </div>
