@@ -12,3 +12,9 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('register', 'AuthController@register');
 });
+
+Route::group([
+	'middleware'=>['api', 'cors']
+], function(){
+	Route::get('qr', 'QRController@index');
+});
