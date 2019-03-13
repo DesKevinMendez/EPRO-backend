@@ -18,6 +18,7 @@ class CreateArancelesTable extends Migration
             $table->unsignedInteger('id_usuario');
             $table->string('pago');
             $table->date('fecha_pago');
+            $table->foreign('id_usuario')->references('id')->on('users');
             $table->timestamps();
         });
     }
