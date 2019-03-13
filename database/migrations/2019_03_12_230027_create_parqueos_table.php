@@ -19,7 +19,7 @@ class CreateParqueosTable extends Migration
             $table->unsignedInteger('edificio_id');
             $table->unsignedInteger('cantidad_estacionamiento');
             $table->boolean('disponibilidad_parqueo');
-            //$table->foreign('edificio_id')->references('id')->on('edificios');
+            $table->foreign('edificio_id')->references('id')->on('edificios');
             $table->timestamps();
         });
     }
