@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EdificioTableSeeder::class);
         $this->call(ParqueoTableSeeder::class);
         $this->call(IngresoParqueoTableSeeder::class);
-        $this->call(MesTableSeeder::class);
         $this->call(ArancelesTableSeeder::class);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
