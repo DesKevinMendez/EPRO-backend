@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\IngresoParqueo;
+use App\Aranceles;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -63,6 +64,11 @@ class User extends Authenticatable implements JWTSubject
     public function IngresoParqueo()
     {
         return $this->hasMany(IngresoParqueo::class, 'id_usuario');
+    }
+
+    public function Aranceles()
+    {
+        return $this->hasMany(Aranceles::class, 'id_usuario');
     }
 
     // Mutadores

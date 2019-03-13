@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ParqueoTableSeeder::class);
         $this->call(IngresoParqueoTableSeeder::class);
         $this->call(MesTableSeeder::class);
+        $this->call(ArancelesTableSeeder::class);
     }
 }

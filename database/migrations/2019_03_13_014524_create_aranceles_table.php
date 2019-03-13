@@ -16,8 +16,8 @@ class CreateArancelesTable extends Migration
         Schema::create('aranceles', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('id_usuario');
+            $table->string('pago');
             $table->date('fecha_pago');
-            $table->unsignedInteger('id_mes');
             $table->timestamps();
         });
     }

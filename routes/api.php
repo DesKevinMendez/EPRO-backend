@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 Route::group([
     'prefix' => 'auth',
     'namespace' => 'jwt',
-    'middleware'=>['api', 'cors']
+    'middleware' => ['api', 'cors']
 ], function () {
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout')->name('logout');
@@ -14,7 +14,15 @@ Route::group([
 });
 
 Route::group([
-	'middleware'=>['api', 'cors']
-], function(){
-	Route::get('qr', 'QRController@index');
+    'middleware' => ['api', 'cors']
+], function () {
+    //Qr
+    Route::get('qr', 'QRController@index');
+    //Aranceles
+    Route::get('aranceles', 'ArancelesController@index');
+    Route::get('historialAranceles', 'ArancelesController@aranceles');
+    //Parqueo
+    Route::get('historialParqueo', 'ParqueoController@index');
+    Route::get('historialIngresoParqueo', 'ParqueoController@IngresoParqueo');
+    //historial
 });
