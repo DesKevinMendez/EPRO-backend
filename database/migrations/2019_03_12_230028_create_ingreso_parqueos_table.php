@@ -14,12 +14,12 @@ class CreateIngresoParqueosTable extends Migration
     public function up()
     {
         Schema::create('ingreso_parqueos', function (Blueprint $table) {
-            $table->increments('id_parqueo');
+            $table->increments('id_ingreso_parqueo');
             $table->unsignedInteger('id_usuario');
             $table->time('hora_entrada');
             $table->time('hora_salida');
-            $table->time('fecha_registro');
-            $table->string('nombre_parqueo');
+            $table->date('fecha_registro');
+            $table->unsignedInteger('id_parqueo');
             $table->timestamps();
             $table->foreign('id_usuario')
                 ->references('id')->on('users')

@@ -10,7 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\IngresoParqueo;
 
+Route::get('/test', function () {
+    return IngresoParqueo::with('Parqueo')->first();
+});
 Route::get('/', function () {
     return view('welcome');
 });

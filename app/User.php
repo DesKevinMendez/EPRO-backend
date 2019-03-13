@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\IngresoParqueo;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -39,7 +40,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-        /**
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
@@ -56,5 +57,17 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    // Relaciones
+    public function IngresoParqueo()
+    {
+        return $this->hasMany(IngresoParqueo::class, 'id_usuario');
+    }
+
+    // Mutadores
+    public function setPasswordAttribute($attribute)
+    {
+        $this->attributes['password'] = bcrypt($attribute);
     }
 }

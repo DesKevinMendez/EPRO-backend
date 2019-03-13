@@ -14,15 +14,15 @@ class CreateParqueosTable extends Migration
     public function up()
     {
         Schema::create('parqueos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('id_ingreso_parqueo');
-            $table->time('estado');
+            $table->increments('id_ingreso_parqueo');
+            $table->string('estado')->default('disponible');
+            $table->unsignedInteger('edificio_id');
             $table->unsignedInteger('cantidad_estacionamiento');
             $table->boolean('disponibilidad_parqueo');
             $table->timestamps();
-            $table->foreign('id_ingreso_parqueo')
+            /*$table->foreign('id_ingreso_parqueo')
                 ->references('id_parqueo')->on('ingreso_parqueos')
-                ->onDelete('cascade');
+                ->onDelete('cascade');*/
         });
     }
 
