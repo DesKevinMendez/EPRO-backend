@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EdificioTableSeeder::class);
         $this->call(ParqueoTableSeeder::class);
         $this->call(IngresoParqueoTableSeeder::class);
+        $this->call(MesTableSeeder::class);
     }
 }

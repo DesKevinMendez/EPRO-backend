@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 use App\User;
+
 class QRController extends Controller
 {
-    public function index(){
-    	$user = User::find(1);
+	public function index()
+	{
+		$user = User::find(1);
 		$image =  QrCode::size(250)->generate($user);
 		return $image;
-    }
+	}
 }
