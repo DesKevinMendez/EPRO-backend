@@ -24,6 +24,8 @@ class CreateIngresoParqueosTable extends Migration
             $table->foreign('id_usuario')
                 ->references('id')->on('users');
 
+            $table->foreign('id_parqueo')
+                ->references('id')->on('parqueos');
             /*$table->foreign('id_parqueo')
                 ->references('id')->on('parqueos');*/
         });

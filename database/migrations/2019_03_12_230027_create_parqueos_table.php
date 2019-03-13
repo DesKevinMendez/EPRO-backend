@@ -21,8 +21,6 @@ class CreateParqueosTable extends Migration
             $table->boolean('disponibilidad_parqueo');
             //$table->foreign('edificio_id')->references('id')->on('edificios');
             $table->timestamps();
-            $table->foreign('edificio_id')
-                ->references('id')->on('ingreso_parqueos');
         });
     }
 
