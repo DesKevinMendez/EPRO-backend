@@ -2,11 +2,13 @@
 namespace App\Http\Controllers\jwt;
 
 use Validator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use JWTAuth;
 use App\User;
+
 class AuthController extends Controller
 {
 
@@ -55,23 +57,39 @@ class AuthController extends Controller
     //Funcion que se ha utilizado para hacer el registro
     public function register(Request $request)
     {
-
+        
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'carnet' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' =>'required|string|min:6'
         ]);
 
         if($validator->fails()){
-                return response()->json($validator->errors(), 400);
+            return response()->json($validator->errors(), 400);
         }
+        $userQR = [
+            'nombre'=>$request->get('nombre'),
+            'apellido'=>$request->get('apellido'),
+            'carnet'=>$request->get('carnet'),
+            'email' => $request->get('email'),
+        ];
+        
+        $image =  QrCode::size(250)->generate(implode(',', $userQR));
 
         $user = User::create([
-            'name' => $request->get('name'),
+            'nombre'=>$request->get('nombre'),
+            'apellido'=>$request->get('apellido'),
+            'carnet'=>$request->get('carnet'),
             'email' => $request->get('email'),
-            'password' => bcrypt($request->get('password')),
+            'qr'=>$image,
+            'password' => $request->get('password'),
         ]);
+        
+
+        
 
         $token = JWTAuth::fromUser($user);
 

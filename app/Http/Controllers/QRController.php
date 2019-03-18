@@ -12,7 +12,7 @@ class QRController extends Controller
 	public function index()
 	{
 		$user = User::find(1);
-		$image =  QrCode::size(250)->generate($user);
-		return $image;
+		$image =  QrCode::size(250)->generate("hola");
+		return strlen($image);
 	}
 }
