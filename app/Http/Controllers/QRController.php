@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
+use JWTAuth;
 use App\User;
 
 class QRController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$user = User::find(1);
-		$image =  QrCode::size(250)->generate("hola");
-		return strlen($image);
+
+		$user = JWTAuth::toUser();
+		
+		return $user;
 	}
 }

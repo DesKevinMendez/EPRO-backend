@@ -14,10 +14,11 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['api', 'cors']
+    'middleware' => ['api', 'cors', 'jwt']
 ], function () {
     //Qr
     Route::get('qr', 'QRController@index');
+    Route::get('home', 'HomeController@index');
     //Aranceles
     Route::get('aranceles', 'ArancelesController@index');
     Route::get('historialAranceles', 'ArancelesController@aranceles');

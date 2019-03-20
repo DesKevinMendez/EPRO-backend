@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use JWTAuth;
 use App\IngresoParqueo;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class ParqueoController extends Controller
 
     public function IngresoParqueo()
     {
-        return IngresoParqueo::with('User')->get();
+    	$user = JWTAuth::toUser();
+        return IngresoParqueo::with('Parqueo.Edificio')->where('id_usuario', $user->id)->get();
     }
 }

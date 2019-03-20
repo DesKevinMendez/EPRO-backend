@@ -88,9 +88,6 @@ class AuthController extends Controller
             'password' => $request->get('password'),
         ]);
         
-
-        
-
         $token = JWTAuth::fromUser($user);
 
         return $this->respondWithToken($token);

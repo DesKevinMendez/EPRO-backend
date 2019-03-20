@@ -17,6 +17,6 @@ class IngresoParqueo extends Model
 
     public function Parqueo()
     {
-        return $this->hasOne(Parqueo::class, 'id_ingreso_parqueo', 'id_ingreso_parqueo');
+        return $this->hasOne(Parqueo::class, 'id');
     }
 }
