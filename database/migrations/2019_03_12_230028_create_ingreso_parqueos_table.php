@@ -17,7 +17,7 @@ class CreateIngresoParqueosTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_usuario');
             $table->time('hora_entrada');
-            $table->time('hora_salida');
+            $table->time('hora_salida')->nullable();
             $table->date('fecha_registro');
             $table->unsignedInteger('id_parqueo');
             $table->timestamps();
