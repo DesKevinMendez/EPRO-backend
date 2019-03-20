@@ -12,8 +12,6 @@ class ArancelesController extends Controller
     public function index()
     {
     	$user = JWTAuth::toUser();
-
-    	
         return Aranceles::where('id_usuario', $user->id)->get();
     }
 
