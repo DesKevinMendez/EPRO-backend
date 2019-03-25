@@ -60,6 +60,10 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function getRouteKeyName(){
+        return 'url';
+    }
+    
     // Relaciones
     public function IngresoParqueo()
     {
@@ -84,11 +88,6 @@ class User extends Authenticatable implements JWTSubject
     public function setPasswordAttribute($attribute)
     {
         $this->attributes['password'] = bcrypt($attribute);
-    }
-
-    public function setUrlAttribute($attribute)
-    {
-        dd($attribute);
-        $this->attributes['url'] = str_replace('-', '_', $this->attributes['carnet']);
+        $this->attributes['url'] = $this->attributes['carnet'];
     }
 }
