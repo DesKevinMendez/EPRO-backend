@@ -63,6 +63,11 @@ class Kernel extends HttpKernel
         
         'cors' => \App\Http\Middleware\Cors::class, 
         'jwt' => \App\Http\Middleware\JWT::class,
+
+
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class
     ];
 
     /**

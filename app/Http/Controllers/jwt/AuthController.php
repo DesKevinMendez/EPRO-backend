@@ -6,6 +6,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
 use JWTAuth;
 use App\User;
 
@@ -87,8 +88,9 @@ class AuthController extends Controller
             'qr'=>$image,
             'password' => $request->get('password'),
         ]);
-        
         $token = JWTAuth::fromUser($user);
+        $role = Role::findByName('Estudiante');
+        $user->assignRole($role);
 
         return $this->respondWithToken($token);
     }

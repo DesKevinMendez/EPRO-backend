@@ -25,5 +25,6 @@ Route::group([
     //Parqueo
     Route::get('historialParqueo', 'ParqueoController@index');
     Route::get('historialIngresoParqueo', 'ParqueoController@IngresoParqueo');
+    Route::middleware('role:Admin')->get('allStudents', 'EstudiantesController@index');
     //historial
 });

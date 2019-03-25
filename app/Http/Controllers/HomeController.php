@@ -35,6 +35,15 @@ class HomeController extends Controller
         	]
         	
         ];
+        if($user->hasRole('Admin')){
+            $data['role'] = [
+                'role'=>'Admin'
+            ];
+        }else if($user->hasRole('Estudiante')){
+            $data['role'] = [
+                'role'=>'Estudiante'
+            ];
+        }
 
         return $data;
     }

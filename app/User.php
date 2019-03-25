@@ -66,14 +66,29 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(IngresoParqueo::class, 'id_usuario');
     }
 
+    public function UltimoIngresoParqueo()
+    {
+        return $this->hasOne(IngresoParqueo::class, 'id_usuario');
+    }
+
     public function Aranceles()
     {
         return $this->hasMany(Aranceles::class, 'id_usuario');
     }
 
+    public function Arancel()
+    {
+        return $this->hasOne(Aranceles::class, 'id_usuario');
+    }
     // Mutadores
     public function setPasswordAttribute($attribute)
     {
         $this->attributes['password'] = bcrypt($attribute);
+    }
+
+    public function setUrlAttribute($attribute)
+    {
+        dd($attribute);
+        $this->attributes['url'] = str_replace('-', '_', $this->attributes['carnet']);
     }
 }
