@@ -4,7 +4,6 @@ namespace App\Http\Controllers\jwt;
 use Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use JWTAuth;
@@ -18,7 +17,7 @@ class AuthController extends Controller
      *
      * @return https://medium.com/@experttyce/c%C3%B3mo-crear-un-api-rest-con-laravel-5-7-y-jwt-token-94b79c533c6d
      */
-    
+
 
     public function __construct()
     {
@@ -37,7 +36,7 @@ class AuthController extends Controller
             'password' => 'required|string|max:255',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
@@ -53,39 +52,39 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    
+
 
     //Funcion que se ha utilizado para hacer el registro
     public function register(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'carnet' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'password_confirmation' =>'required|string|min:6'
+            'password_confirmation' => 'required|string|min:6'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
         $userQR = [
-            'nombre'=>$request->get('nombre'),
-            'apellido'=>$request->get('apellido'),
-            'carnet'=>$request->get('carnet'),
+            'nombre' => $request->get('nombre'),
+            'apellido' => $request->get('apellido'),
+            'carnet' => $request->get('carnet'),
             'email' => $request->get('email'),
         ];
-        
+
         $image =  QrCode::size(250)->generate(implode(',', $userQR));
 
         $user = User::create([
-            'nombre'=>$request->get('nombre'),
-            'apellido'=>$request->get('apellido'),
-            'carnet'=>$request->get('carnet'),
+            'nombre' => $request->get('nombre'),
+            'apellido' => $request->get('apellido'),
+            'carnet' => $request->get('carnet'),
             'email' => $request->get('email'),
-            'qr'=>$image,
+            'qr' => $image,
             'password' => $request->get('password'),
         ]);
         $token = JWTAuth::fromUser($user);
@@ -136,4 +135,3 @@ class AuthController extends Controller
         ]);
     }
 }
-

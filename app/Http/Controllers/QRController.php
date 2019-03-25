@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Illuminate\Support\Facades\Storage;
 use JWTAuth;
-use App\User;
 
 class QRController extends Controller
 {
@@ -14,7 +11,7 @@ class QRController extends Controller
 	{
 
 		$user = JWTAuth::toUser();
-		
+
 		return $user;
 	}
 }
