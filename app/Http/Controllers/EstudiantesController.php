@@ -9,9 +9,19 @@ use App\User;
 
 class EstudiantesController extends Controller
 {
-    public function index()
+    public function estudiante()
     {
-        return User::with('UltimoIngresoParqueo', 'Arancel')->get();
+        return User::role('Estudiante')->with('UltimoIngresoParqueo', 'Arancel')->get();
+    }
+
+    public function maestros()
+    {
+        return User::role('Maestro')->with('UltimoIngresoParqueo', 'Arancel')->get();
+    }
+
+    public function administradores()
+    {
+        return User::role('Admin')->with('UltimoIngresoParqueo', 'Arancel')->get();
     }
 
     public function findEstudent($url)
@@ -21,10 +31,6 @@ class EstudiantesController extends Controller
 
     public function ChangePass(Request $request)
     {
-
-        // password    000000
-        // password_nuevo    000000
-        // password_confirmation    000000
         $validator = Validator::make($request->all(), [
             'password_actual' => 'min:6|required',
             'password' => 'confirmed|required',

@@ -26,7 +26,9 @@ Route::group([
     Route::get('historialParqueo', 'ParqueoController@index');
     Route::get('historialIngresoParqueo', 'ParqueoController@IngresoParqueo');
     Route::POST('cambiarpassword', 'EstudiantesController@ChangePass');
-    Route::middleware('role:Admin')->get('allStudents', 'EstudiantesController@index');
+    Route::middleware('role:Admin')->get('allStudents', 'EstudiantesController@estudiante');
+    Route::middleware('role:Admin')->get('maestros', 'EstudiantesController@maestros');
+    Route::middleware('role:Admin')->get('admin', 'EstudiantesController@administradores');
     Route::middleware('role:Admin')->get('getStudents/{url}', 'EstudiantesController@findEstudent');
     //historial
 });

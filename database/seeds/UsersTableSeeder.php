@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
     {
         $roleAdmin = Role::create(['name' => 'Admin']);
         $roleEstudiante = Role::create(['name' => 'Estudiante']);
+        $roleMaestro = Role::create(['name' => 'Maestro']);
 
 
 
@@ -25,7 +26,7 @@ class UsersTableSeeder extends Seeder
             'carnet'=>"25-3992-2015",
             'email' => "kevin@gmail.com",
         ];
-        
+
         $qrAdmin =  QrCode::size(250)->generate(implode(',', $userAdminQR));
         $Admin = new User;
         $Admin->nombre = "Kevin";
@@ -45,7 +46,7 @@ class UsersTableSeeder extends Seeder
             'carnet'=>"17-3992-2017",
             'email' => "maria@gmail.com",
         ];
-        
+
         $qrAlumno =  QrCode::size(250)->generate(implode(',', $userAlumnoQR));
 
         $Alumno = new User;
@@ -57,5 +58,44 @@ class UsersTableSeeder extends Seeder
         $Alumno->qr = $qrAlumno;
         $Alumno->save();
         $Alumno->assignRole($roleEstudiante);
+
+
+        $userMaestroQR = [
+            'nombre'=>"Maria",
+            'apellido'=>"Valladares",
+            'carnet'=>"17-3992-2017",
+            'email' => "maria2@gmail.com",
+        ];
+
+        $qrMaestro =  QrCode::size(250)->generate(implode(',', $userMaestroQR));
+
+        $Alumno = new User;
+        $Alumno->nombre = "Jorge";
+        $Alumno->apellido = "Mancia";
+        $Alumno->carnet = "17-3992-2017";
+        $Alumno->email = "maestro@gmail.com";
+        $Alumno->password = "secret";
+        $Alumno->qr = $qrMaestro;
+        $Alumno->save();
+        $Alumno->assignRole($roleMaestro);
+
+        $userMaestroQR = [
+            'nombre'=>"Maria",
+            'apellido'=>"Valladares",
+            'carnet'=>"17-3992-2017",
+            'email' => "maria@gmail.com",
+        ];
+
+        $qrMaestro =  QrCode::size(250)->generate(implode(',', $userMaestroQR));
+
+        $Alumno = new User;
+        $Alumno->nombre = "Jorge";
+        $Alumno->apellido = "Mancia";
+        $Alumno->carnet = "17-3992-2017";
+        $Alumno->email = "maestro2@gmail.com";
+        $Alumno->password = "secret";
+        $Alumno->qr = $qrMaestro;
+        $Alumno->save();
+        $Alumno->assignRole($roleMaestro);
     }
 }

@@ -14,12 +14,13 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, HasRoles;
 
+    protected $guard_name = "api";
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    
+
 
     protected $guarded= ['id'];
 
@@ -63,7 +64,7 @@ class User extends Authenticatable implements JWTSubject
     public function getRouteKeyName(){
         return 'url';
     }
-    
+
     // Relaciones
     public function IngresoParqueo()
     {
@@ -88,6 +89,14 @@ class User extends Authenticatable implements JWTSubject
     public function setPasswordAttribute($attribute)
     {
         $this->attributes['password'] = bcrypt($attribute);
-        $this->attributes['url'] = $this->attributes['carnet'];
+        $url = str_replace(' ', '-', $this->attributes['nombre'].' '.$this->attributes['apellido']);
+        if (static::where('url', $url)->exists()) {
+            //Obtiene el ultimo post que coincida con la url y le sumauno, para tner la nueva URL
+            $tempo = static::latest()->where('url', $url)->first();
+            $url = "{$url}-".++$tempo->id;
+        }
+        $this->attributes['url'] = strtolower($url);
+
     }
+
 }

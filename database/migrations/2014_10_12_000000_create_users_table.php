@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('apellido');
-            $table->string('carnet');
+            $table->string('carnet')->nullable();
             $table->string('url')->nullable();
             $table->text('qr', 70000)->nullable();
             $table->string('email')->unique();
