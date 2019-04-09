@@ -24,10 +24,11 @@ class EstudiantesController extends Controller
         return User::role('Admin')->with('UltimoIngresoParqueo', 'Arancel')->get();
     }
 
-    public function findEstudent($url)
+    public function getUser($id)
     {
-        return User::where('url', $url)->first();
+        return User::where('url', $id)->with('UltimoIngresoParqueo', 'Arancel', 'IngresoParqueo.Parqueo.Edificio', 'Aranceles')->first();
     }
+
 
     public function ChangePass(Request $request)
     {

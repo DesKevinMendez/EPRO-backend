@@ -29,6 +29,6 @@ Route::group([
     Route::middleware('role:Admin')->get('allStudents', 'EstudiantesController@estudiante');
     Route::middleware('role:Admin')->get('maestros', 'EstudiantesController@maestros');
     Route::middleware('role:Admin')->get('admin', 'EstudiantesController@administradores');
-    Route::middleware('role:Admin')->get('getStudents/{url}', 'EstudiantesController@findEstudent');
+    Route::middleware('role:Admin')->get('usuario/{url}', 'EstudiantesController@getUser');
     //historial
 });
