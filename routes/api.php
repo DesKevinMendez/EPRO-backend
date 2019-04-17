@@ -32,3 +32,10 @@ Route::group([
     Route::middleware('role:Admin')->get('usuario/{url}', 'EstudiantesController@getUser');
     //historial
 });
+
+
+Route::group([
+    'middleware' => ['api', 'cors']
+], function () {
+    Route::POST('nuevoingresoparqueo', 'IngresoParqueoController@create');
+});

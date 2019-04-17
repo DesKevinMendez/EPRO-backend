@@ -18,6 +18,6 @@ class ParqueoController extends Controller
     public function IngresoParqueo()
     {
     	$user = JWTAuth::toUser();
-        return IngresoParqueo::with('Parqueo.Edificio')->where('id_usuario', $user->id)->get();
+        return IngresoParqueo::latest()->with('Parqueo.Edificio')->where('id_usuario', $user->id)->get();
     }
 }
