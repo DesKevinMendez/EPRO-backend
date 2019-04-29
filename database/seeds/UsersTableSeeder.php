@@ -18,16 +18,7 @@ class UsersTableSeeder extends Seeder
         $roleEstudiante = Role::create(['name' => 'Estudiante']);
         $roleMaestro = Role::create(['name' => 'Maestro']);
 
-
-
-        $userAdminQR = [
-            'nombre'=>"Kevin",
-            'apellido'=>"Mendez",
-            'carnet'=>"25-3992-2015",
-            'email' => "kevin@gmail.com",
-        ];
-
-        $qrAdmin =  QrCode::size(250)->generate(implode(',', $userAdminQR));
+        $qrAdmin =  QrCode::size(250)->generate("kevin@gmail.com");
         $Admin = new User;
         $Admin->nombre = "Kevin";
         $Admin->apellido = "Mendez";
@@ -38,16 +29,7 @@ class UsersTableSeeder extends Seeder
         $Admin->save();
         $Admin->assignRole($roleAdmin);
 
-
-
-        $userAlumnoQR = [
-            'nombre'=>"Maria",
-            'apellido'=>"Valladares",
-            'carnet'=>"17-3992-2017",
-            'email' => "maria@gmail.com",
-        ];
-
-        $qrAlumno =  QrCode::size(250)->generate(implode(',', $userAlumnoQR));
+        $qrAlumno =  QrCode::size(250)->generate("maria@gmail.com");
 
         $Alumno = new User;
         $Alumno->nombre = "Maria";
@@ -60,14 +42,7 @@ class UsersTableSeeder extends Seeder
         $Alumno->assignRole($roleEstudiante);
 
 
-        $userMaestroQR = [
-            'nombre'=>"Maria",
-            'apellido'=>"Valladares",
-            'carnet'=>"17-3992-2017",
-            'email' => "maria2@gmail.com",
-        ];
-
-        $qrMaestro =  QrCode::size(250)->generate(implode(',', $userMaestroQR));
+        $qrMaestro =  QrCode::size(250)->generate("maria2@gmail.com");
 
         $Alumno = new User;
         $Alumno->nombre = "Jorge";
@@ -79,14 +54,7 @@ class UsersTableSeeder extends Seeder
         $Alumno->save();
         $Alumno->assignRole($roleMaestro);
 
-        $userMaestroQR = [
-            'nombre'=>"Maria",
-            'apellido'=>"Valladares",
-            'carnet'=>"17-3992-2017",
-            'email' => "maria@gmail.com",
-        ];
-
-        $qrMaestro =  QrCode::size(250)->generate(implode(',', $userMaestroQR));
+        $qrMaestro =  QrCode::size(250)->generate("jorge@mancia.com");
 
         $Alumno = new User;
         $Alumno->nombre = "Jorge";
@@ -97,5 +65,8 @@ class UsersTableSeeder extends Seeder
         $Alumno->qr = $qrMaestro;
         $Alumno->save();
         $Alumno->assignRole($roleMaestro);
+
+
+        $qrMaestro =  QrCode::size(250)->generate("jorge.mancia@gmail.com");
     }
 }

@@ -70,14 +70,8 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        $userQR = [
-            'nombre' => $request->get('nombre'),
-            'apellido' => $request->get('apellido'),
-            'carnet' => $request->get('carnet'),
-            'email' => $request->get('email'),
-        ];
 
-        $image =  QrCode::size(250)->generate(implode(',', $userQR));
+        $image =  QrCode::size(250)->generate($request->get('email'));
 
         $user = User::create([
             'nombre' => $request->get('nombre'),
