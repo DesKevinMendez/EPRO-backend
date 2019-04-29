@@ -1,98 +1,41 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                margin-top: 12px;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+      <title>Instascan &ndash; Demo</title>
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+      <script type="text/javascript" src="{{ asset('js/extras/adapter.min.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('js/extras/instascan.min.js') }}"></script>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Estándares de programación
-                </div>
-
-                <div class="links">
-                    <strong><h3 style="color: red">Integrantes</h3></strong>
-                    <a href="#">Kevin Ezequiel Méndez Orellana</a>
-                    <a href="#">Kevin Ezequiel Méndez Orellana</a>
-                </div>
-            </div>
+      <div id="app">
+        <div class="sidebar">
+          <section class="cameras">
+            <h2>Cámaras</h2>
+            <ul>
+              <li v-if="cameras.length === 0" class="empty">No se encontraron camarás</li>
+              <li v-for="camera in cameras">
+                <span v-if="camera.id == activeCameraId" :title="formatName(camera.name)" class="active">@{{ formatName(camera.name) }}</span>
+                <span v-if="camera.id != activeCameraId" :title="formatName(camera.name)">
+                  <a @click.stop="selectCamera(camera)">@{{ formatName(camera.name) }}</a>
+                </span>
+              </li>
+            </ul>
+          </section>
+          <section class="scans">
+            <h2>Escaneos</h2>
+            <ul v-if="scans.length === 0">
+              <li class="empty">No hay escaneos todavía</li>
+            </ul>
+            <transition-group name="scans" tag="ul">
+              <li v-for="scan in scans" :key="scan.date" :title="scan.content">@{{ scan.content }}</li>
+            </transition-group>
+          </section>
         </div>
+        <div class="preview-container">
+          <video id="preview"></video>
+        </div>
+      </div>
+      <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     </body>
-</html>
+  </html>
