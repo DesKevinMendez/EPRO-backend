@@ -1800,6 +1800,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Scanner",
@@ -1820,7 +1829,8 @@ __webpack_require__.r(__webpack_exports__);
     self.scanner.addListener("scan", function (content, image) {
       self.scans.unshift({
         date: +Date.now(),
-        content: content
+        content: content,
+        enviado: ''
       });
     });
     Instascan.Camera.getCameras().then(function (cameras) {
@@ -1851,7 +1861,11 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/nuevoingresoparqueo', {
         email: sendEmail
       }).then(function (resp) {
-        console.log(resp);
+        if (resp.data === 1) {
+          email[0].enviado = 'ok';
+        } else {
+          email[0].enviado = 'failed';
+        }
       });
     }
   }
@@ -37169,6 +37183,7 @@ var render = function() {
                       "span",
                       {
                         staticClass: "active",
+                        staticStyle: { color: "red" },
                         attrs: { title: _vm.formatName(camera.name) }
                       },
                       [_vm._v(_vm._s(_vm.formatName(camera.name)))]
@@ -37222,8 +37237,32 @@ var render = function() {
             _vm._l(_vm.scans, function(scan) {
               return _c(
                 "li",
-                { key: scan.date, attrs: { title: scan.content } },
-                [_vm._v(_vm._s(scan.content))]
+                {
+                  key: scan.date,
+                  staticStyle: { padding: "0px" },
+                  attrs: { title: scan.content }
+                },
+                [
+                  scan.enviado === "ok"
+                    ? _c("div", { staticClass: "alert alert-success" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(scan.content) +
+                            "\n                        "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  scan.enviado === "failed"
+                    ? _c("div", { staticClass: "alert alert-danger" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(scan.content) +
+                            "\n                        "
+                        )
+                      ])
+                    : _vm._e()
+                ]
               )
             }),
             0

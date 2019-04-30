@@ -10,7 +10,9 @@
 							v-if="camera.id == activeCameraId"
 							:title="formatName(camera.name)"
 							class="active"
+                            style="color:red;"
 						>{{ formatName(camera.name) }}</span>
+
 						<span v-if="camera.id != activeCameraId" :title="formatName(camera.name)">
 							<a @click.stop="selectCamera(camera)">{{ formatName(camera.name) }}</a>
 						</span>
@@ -23,7 +25,14 @@
 					<li class="empty">No hay escaneos todavía</li>
 				</ul>
 				<transition-group name="scans" tag="ul">
-					<li v-for="scan in scans" :key="scan.date" :title="scan.content">{{ scan.content }}</li>
+					<li v-for="scan in scans" :key="scan.date" :title="scan.content" style="padding: 0px">
+                        <div v-if="scan.enviado === 'ok'" class="alert alert-success">
+                            {{ scan.content }}
+                        </div>
+                        <div v-if="scan.enviado === 'failed'" class="alert alert-danger">
+                            {{ scan.content }}
+                        </div>
+                    </li>
 				</transition-group>
 			</section>
 		</div>
@@ -53,7 +62,7 @@ export default {
 			scanPeriod: 5
 		});
 		self.scanner.addListener("scan", function(content, image) {
-			self.scans.unshift({ date: +Date.now(), content: content });
+			self.scans.unshift({ date: +Date.now(), content: content, enviado: '' });
 		});
 		Instascan.Camera.getCameras()
 			.then(function(cameras) {
@@ -84,7 +93,11 @@ export default {
             axios.post('http://127.0.0.1:8000/api/nuevoingresoparqueo', {
                 email: sendEmail
             }).then(resp => {
-                console.log(resp)
+                if(resp.data === 1){
+                    email[0].enviado = 'ok';
+                }else {
+                    email[0].enviado = 'failed';
+                }
             })
         }
     }
