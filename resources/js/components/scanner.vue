@@ -54,7 +54,6 @@ export default {
 		});
 		self.scanner.addListener("scan", function(content, image) {
 			self.scans.unshift({ date: +Date.now(), content: content });
-            this.sendEmail(content);
 		});
 		Instascan.Camera.getCameras()
 			.then(function(cameras) {
