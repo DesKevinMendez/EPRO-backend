@@ -5,7 +5,7 @@
 				<h2>Cámaras</h2>
 				<ul>
 					<li v-if="cameras.length === 0" class="empty">No se encontraron camarás</li>
-					<li v-for="camera in cameras" :key="camera">
+					<li v-for="(camera, index) in cameras" :key="index">
 						<span
 							v-if="camera.id == activeCameraId"
 							:title="formatName(camera.name)"
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
 	name: "Scanner",
 	data() {
@@ -52,7 +54,7 @@ export default {
 		});
 		self.scanner.addListener("scan", function(content, image) {
 			self.scans.unshift({ date: +Date.now(), content: content });
-			console.log(content);
+            this.sendEmail(content);
 		});
 		Instascan.Camera.getCameras()
 			.then(function(cameras) {
@@ -75,7 +77,17 @@ export default {
 		selectCamera: function(camera) {
 			this.activeCameraId = camera.id;
 			this.scanner.start(camera);
-		}
-	}
+        }
+    },
+    watch: {
+        scans: function(email) {
+            const sendEmail = email[0].content
+            axios.post('http://127.0.0.1:8000/api/nuevoingresoparqueo', {
+                email: sendEmail
+            }).then(resp => {
+                console.log(resp)
+            })
+        }
+    }
 };
 </script>

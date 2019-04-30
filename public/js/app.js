@@ -1763,6 +1763,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1798,6 +1800,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Scanner",
   data: function data() {
@@ -1819,7 +1822,7 @@ __webpack_require__.r(__webpack_exports__);
         date: +Date.now(),
         content: content
       });
-      console.log(content);
+      this.sendEmail(content);
     });
     Instascan.Camera.getCameras().then(function (cameras) {
       self.cameras = cameras;
@@ -1841,6 +1844,16 @@ __webpack_require__.r(__webpack_exports__);
     selectCamera: function selectCamera(camera) {
       this.activeCameraId = camera.id;
       this.scanner.start(camera);
+    }
+  },
+  watch: {
+    scans: function scans(email) {
+      var sendEmail = email[0].content;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/nuevoingresoparqueo', {
+        email: sendEmail
+      }).then(function (resp) {
+        console.log(resp);
+      });
     }
   }
 });
@@ -37150,8 +37163,8 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm._l(_vm.cameras, function(camera) {
-              return _c("li", { key: camera }, [
+            _vm._l(_vm.cameras, function(camera, index) {
+              return _c("li", { key: index }, [
                 camera.id == _vm.activeCameraId
                   ? _c(
                       "span",
