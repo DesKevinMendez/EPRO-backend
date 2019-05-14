@@ -24,19 +24,30 @@ class IngresoParqueoController extends Controller
 
             $user = User::select('id')->where('email', $request->email)->first();
             $verificaIngreso = IngresoParqueo::latest()->where('id_usuario', $user->id)->first();
+
             // Verifica que el ultimo registro tenga una hora de salida registrada
-            if($verificaIngreso->hora_salida === null){
-                $verificaIngreso->hora_salida = Carbon::now()->toTimeString();
-                $verificaIngreso->update();
+            if($verificaIngreso){
+                if($verificaIngreso->hora_salida === null){
+                    $verificaIngreso->hora_salida = Carbon::now()->toTimeString();
+                    $verificaIngreso->update();
+                }else{
+                    // En caso de que el ultimo registro del usuario tenga una hora de salida registrada
+                    $ingreso = new IngresoParqueo();
+                    $ingreso->id_usuario = $user->id;
+                    $ingreso->hora_entrada = Carbon::now()->toTimeString();
+                    $ingreso->fecha_registro = Carbon::now();
+                    $ingreso->id_parqueo = 3;
+                    $ingreso->save();
+                }
             }else{
-                // En caso de que el ultimo registro del usuario tenga una hora de salida registrada
-                $ingreso = new IngresoParqueo();
-                $ingreso->id_usuario = $user->id;
-                $ingreso->hora_entrada = Carbon::now()->toTimeString();
-                $ingreso->fecha_registro = Carbon::now();
-                $ingreso->id_parqueo = 3;
-                $ingreso->save();
+                    $ingreso = new IngresoParqueo();
+                    $ingreso->id_usuario = $user->id;
+                    $ingreso->hora_entrada = Carbon::now()->toTimeString();
+                    $ingreso->fecha_registro = Carbon::now();
+                    $ingreso->id_parqueo = 3;
+                    $ingreso->save();
             }
+
             // Retorna 1 si hubo interaccion con la base de datos
             return 1;
         }
