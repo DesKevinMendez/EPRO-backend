@@ -230,7 +230,10 @@ return [
         //JWT
 
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class
+        'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class,
+
+        // PDF
+        'PDF' => Barryvdh\DomPDF\Facade::class
 
     ],
 

@@ -33,7 +33,9 @@ Route::group([
     Route::middleware('role:Admin')->get('maestros', 'EstudiantesController@maestros');
     Route::middleware('role:Admin')->get('admin', 'EstudiantesController@administradores');
     Route::middleware('role:Admin')->get('usuario/{url}', 'EstudiantesController@getUser');
-    Route::middleware('role:Admin')->post('nuevoInvitado', 'InvitadosController');
+    Route::middleware('role:Admin')->post('nuevoInvitado', 'InvitadosController@create');
+    Route::middleware('role:Admin')->get('invitados', 'InvitadosController@index');
+    Route::middleware('role:Admin')->get('reporteInvitados', 'InvitadosController@reporte');
     //historial
 });
 

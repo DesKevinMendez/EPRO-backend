@@ -8,22 +8,22 @@ use App\Invitados;
 use Carbon\Carbon;
 use Validator;
 use App\Events\SeendQR;
+use PDF;
 
 class InvitadosController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
+
+    public function index(){
+        return Invitados::latest()->get();
+    }
+
+    public function create(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
-            'name' => 'required|string|max:255',
-            'apell' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -33,8 +33,8 @@ class InvitadosController extends Controller
         $image =  QrCode::size(250)->generate($request->email);
 
         $user = Invitados::create([
-            'nombre'=>$request->name,
-            'apellido'=> $request->apell,
+            'nombre'=>$request->nombre,
+            'apellido'=> $request->apellido,
             'email'=>$request->email,
             'fecha_registro'=>Carbon::now(),
             'qr'=> $image,
@@ -42,5 +42,12 @@ class InvitadosController extends Controller
 
         SeendQR::dispatch($user);
         return 1;
+    }
+
+    public function reporte(){
+        $invitados = Invitados::latest()->get();
+        $pdf = PDF::loadView('reportes.invitados', ['invitados'=>$invitados]);
+
+        return $pdf->download('invoice.pdf');
     }
 }
