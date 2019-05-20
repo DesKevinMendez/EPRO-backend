@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 
+Route::get('email', function(){
+    return new App\Mail\accessToParking(\App\Invitados::first());
+});
 Route::group([
     'prefix' => 'auth',
     'namespace' => 'jwt',
@@ -30,6 +33,7 @@ Route::group([
     Route::middleware('role:Admin')->get('maestros', 'EstudiantesController@maestros');
     Route::middleware('role:Admin')->get('admin', 'EstudiantesController@administradores');
     Route::middleware('role:Admin')->get('usuario/{url}', 'EstudiantesController@getUser');
+    Route::middleware('role:Admin')->post('nuevoInvitado', 'InvitadosController');
     //historial
 });
 

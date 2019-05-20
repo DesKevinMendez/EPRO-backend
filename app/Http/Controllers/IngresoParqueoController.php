@@ -50,9 +50,16 @@ class IngresoParqueoController extends Controller
 
             // Retorna 1 si hubo interaccion con la base de datos
             return 1;
+        }else if($request->email === "autoriza@mail.utec.edu.sv"){
+            return 1;
+        }else{
+            // Retorna 0 si no existe un usuario con ese email
+            return 0;
         }
-        // Retorna 0 si no existe un usuario con ese email
-        return 0;
+    }
+
+    public function createInvitado($datos){
+        return $datos;
     }
 
 }
