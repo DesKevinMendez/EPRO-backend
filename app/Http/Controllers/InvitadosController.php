@@ -41,6 +41,6 @@ class InvitadosController extends Controller
         ]);
 
         SeendQR::dispatch($user);
-        return true;
+        return 1;
     }
 }
